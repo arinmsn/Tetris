@@ -16,12 +16,14 @@ function arenaSweep() {
         arena.unshift(row);
         ++y;
         player.score += rowCount * 10;
-        rowCount *= 1.5; 
+        rowCount *= 2; 
     }
 }
 
 function collide(arena, player) {
-    const [m, o] = [player.matrix, player.pos];
+    // const m = player.matrix;
+    // const o = player.pos;
+    const [m, o] = [player.matrix, player.pos]; 
     for (let y = 0; y < m.length; ++y) {
         for (let x = 0; x < m[y].length; ++x) {
             if (m[y][x] !== 0 &&
@@ -49,7 +51,7 @@ function createPiece(type) {
             [1, 1, 1],
             [0, 1, 0],
         ];
-    } else if (type === 'o') {
+    } else if (type === 'O') {
         return [
             [2, 2],
             [2, 2],
@@ -193,8 +195,8 @@ function rotate(matrix, dir) {
 
 let dropCounter = 0;
 let dropInterval = 1000; // ms
-
 let lastTime = 0;
+
 function update(time = 0) {
     const deltaTime = time - lastTime;
     dropCounter += deltaTime;
