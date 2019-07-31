@@ -49,7 +49,7 @@ function createPiece(type) {
             [1, 1, 1],
             [0, 1, 0],
         ];
-    } else if (type === 'o') {
+    } else if (type === 'O') {
         return [
             [2, 2],
             [2, 2],
