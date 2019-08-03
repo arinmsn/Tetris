@@ -1,7 +1,15 @@
 class Tetris {
-    constructor() {
+    constructor(canvas) {
     
-     
+    this.canvas = canvas;
+    this.context = canvas.getContext('2d');
+
+    // Scale by 20% - Otherwise, tetris pieaces will be tiny
+    this.context.scale(20, 20);
+
+    this.arena = new Arena(12, 20);
+    this.player = new Player(this);
+
     this.colors = [
         null,
         '#FF0D72',
@@ -18,7 +26,7 @@ class Tetris {
     const update = (time = 0) => {
         const deltaTime = time - lastTime;
         lastTime = time;
-        player.update(deltaTime);
+        this.player.update(deltaTime);
         this.draw();
         requestAnimationFrame(update);
     }
@@ -30,8 +38,8 @@ class Tetris {
             row.forEach((value, x) => {
                 // 0 here means nothing;a transparent spot
                 if (value !== 0) {
-                    context.fillStyle = this.colors[value];
-                    context.fillRect(x + offset.x,
+                    this.context.fillStyle = this.colors[value];
+                    this.context.fillRect(x + offset.x,
                                     y + offset.y, 1, 1);
                 }
             });
@@ -40,9 +48,9 @@ class Tetris {
     
     
     draw() {
-        context.fillStyle = '#000';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        this.drawMatrix(arena.matrix, {x:0, y:0});
-        this.drawMatrix(player.matrix, player.pos);
+        this.context.fillStyle = '#000';
+        this.context.fillRect(0, 0, this.canvas.width, canvas.height);
+        this.drawMatrix(this.arena.matrix, {x:0, y:0});
+        this.drawMatrix(this.player.matrix, this.player.pos);
     }
 }

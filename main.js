@@ -1,9 +1,3 @@
-const canvas = document.getElementById('tetris');
-const context = canvas.getContext('2d');
-
-// Scale by 20% - Otherwise, tetris pieaces will be tiny
-context.scale(20, 20);
-
 function createPiece(type) {
     if (type === 'T') {
         return [
@@ -51,17 +45,17 @@ function createPiece(type) {
 }
 
 function updateScore() {
-    document.getElementById('score').innerText = player.score;
+    document.getElementById('score').innerText = tetris.player.score;
 }
 
-const arena = new Arena(12, 20);
 
-const player = new Player;
+const canvas = document.getElementById('tetris');
 
-const tetris = new Tetris;
+const tetris = new Tetris(canvas);
 
 // Key controls
 document.addEventListener('keydown', event => {
+    const player = tetris.player;
     if (event.keyCode === 37) {
         player.move(-1); // move to left
     } else if (event.keyCode === 39) {
