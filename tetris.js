@@ -1,8 +1,9 @@
 class Tetris {
-    constructor(canvas) {
+    constructor(element) {
     
-    this.canvas = canvas;
-    this.context = canvas.getContext('2d');
+    this.element = element;    
+    this.canvas =  element.querySelector('canvas');
+    this.context = this.canvas.getContext('2d');
 
     // Scale by 20% - Otherwise, tetris pieaces will be tiny
     this.context.scale(20, 20);
@@ -31,6 +32,14 @@ class Tetris {
         requestAnimationFrame(update);
     }
     update()
+    this.updateScore(0);
+    }
+
+    draw() {
+        this.context.fillStyle = '#000';
+        this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawMatrix(this.arena.matrix, {x:0, y:0});
+        this.drawMatrix(this.player.matrix, this.player.pos);
     }
 
     drawMatrix(matrix, offset) {
@@ -46,11 +55,8 @@ class Tetris {
         });
     }
     
-    
-    draw() {
-        this.context.fillStyle = '#000';
-        this.context.fillRect(0, 0, this.canvas.width, canvas.height);
-        this.drawMatrix(this.arena.matrix, {x:0, y:0});
-        this.drawMatrix(this.player.matrix, this.player.pos);
+    updateScore(score) {
+        this.element.querySelector('.score').innerText = score;
     }
+    
 }
